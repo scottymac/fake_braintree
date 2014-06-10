@@ -59,7 +59,27 @@ module FakeBraintree
         'cvv_response_code' => failure['code']
       },
       'errors' => failure['errors'],
-      'params' => {}
+      'params' => {
+        'transaction' => {
+          'amount' => nil,
+          'credit_card' => {
+            'cardholder_name' => "Test Name",
+            'expiration_month' => "6",
+            'expiration_year' => "2020"
+          },
+          'customer' => {
+            'email' => "test@example.com",
+            'phone' => "1235551232"
+          },
+          'billing' => {
+            'postal_code' => "12345"
+          },
+          'options' => {
+            'submit_for_settlement' => "true"
+          },
+          'type' => "sale"
+        }
+      }
     }
   end
 
@@ -72,7 +92,27 @@ module FakeBraintree
         'processor_response_code' => '2000'
       },
       'errors' => { 'errors' => [] },
-      'params' => {}
+      'params' => {
+        'transaction' => {
+          'amount' => nil,
+          'credit_card' => {
+            'cardholder_name' => "Test Name",
+            'expiration_month' => "6",
+            'expiration_year' => "2020"
+          },
+          'customer' => {
+            'email' => "test@example.com",
+            'phone' => "1235551232"
+          },
+          'billing' => {
+            'postal_code' => "12345"
+          },
+          'options' => {
+            'submit_for_settlement' => "true"
+          },
+          'type' => "sale"
+        }
+      }
     }
   end
 
