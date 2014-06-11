@@ -83,7 +83,7 @@ module FakeBraintree
     }
   end
 
-  def self.create_failure
+  def self.create_failure(transaction)
     {
       'message' => 'Do Not Honor',
       'verification' => {
@@ -110,6 +110,7 @@ module FakeBraintree
           'options' => {
             'submit_for_settlement' => "true"
           },
+          'custom_fields' => transaction['custom_fields'],
           'type' => "sale"
         }
       }

@@ -11,6 +11,16 @@ describe FakeBraintree::SinatraApp do
       expect(result.transaction.type).to eq 'sale'
     end
 
+    it 'successfully creates a transaction and passes back custom params' do
+      result = Braintree::Transaction.sale(
+        payment_method_token: cc_token,
+        amount: 10.00,
+        custom_fields: custom_fields
+      )
+      expect(result).to be_success
+      expect(result.transaction.custom_fields).to eq custom_fields
+    end
+
     context 'when all cards are declined' do
       before { FakeBraintree.decline_all_cards! }
 
@@ -21,6 +31,17 @@ describe FakeBraintree::SinatraApp do
         )
         expect(result).to_not be_success
       end
+
+      it 'fails and returns custom fields' do
+        result = Braintree::Transaction.sale(
+          payment_method_token: cc_token,
+          amount: 10.00,
+          custom_fields: custom_fields
+        )
+        expect(result).to_not be_success
+        expect(result.params[:transaction][:custom_fields]).to eq custom_fields
+      end
+
     end
 
     context "when the options hash is nil" do
