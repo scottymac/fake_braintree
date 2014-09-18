@@ -1,9 +1,21 @@
 # HEAD
 
+* Braintree::Subscription has associated dates thanks to @1st8 (#66):
+  - `next_billing_date` is 1 month from billing period start date
+  - `billing_day_of_month` is the next billing date's mday, but is true to
+    Braintree's [exceptional handling of the 31st day of the
+    month](https://www.braintreepayments.com/docs/ruby/subscriptions/details#attributes_that_need_a_bit_more_explaining)
+  - `billing_period_start_date` is either the provided start date or today
+  - `billing_period_end_date` is the day before the next billing date
+
+# 0.5.0
+
 * Remove unused `i18n` gem dependency (#56).
 * Set `credit_card.card_type`, `credit_card.last_4`, and
   `credit_card.unique_number_identifier`. Ensure `credit_card.bin` is always
   set (#47).
+* Support new Braintree credit card API URLs
+* Requires Braintree ~> 2.32 instead of Braintree ~> 2.5.
 
 # 0.4.3
 
